@@ -1,0 +1,5 @@
+streamlit
+pandas
+requests
+plotly
+mlflow==2.19.0

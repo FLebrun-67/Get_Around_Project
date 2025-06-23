@@ -1,0 +1,13 @@
+{
+  "run_id": "7da1f983c7c34ae1a3c4f1f82e15ee7e",
+  "export_date": "2025-06-18T14:16:23.486323",
+  "model_type": "Pipeline",
+  "metrics": {
+    "MAE": 10.335777282714844,
+    "R2": 0.7499711513519287,
+    "RMSE": 16.227640115276696
+  },
+  "parameters": {},
+  "mlflow_uri": "runs:/7da1f983c7c34ae1a3c4f1f82e15ee7e/model",
+  "source": "mlflow_export"
+}

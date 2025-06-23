@@ -1,0 +1,44 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./mlruns:/mlruns
+    depends_on:
+      trainer:
+        condition: service_completed_successfully
+      mlflow:
+        condition: service_started
+
+  trainer:
+    build:
+      context: .
+      dockerfile: Dockerfile.trainer
+    command: python train_model.py
+    volumes:
+      - ./data:/app/data
+      - ./mlruns:/mlruns
+    depends_on:
+      - mlflow
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.streamlit
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - ./mlruns:/mlruns
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow
+    command: mlflow ui --backend-store-uri /mlruns --host 0.0.0.0 --port 5000
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlruns:/mlruns
